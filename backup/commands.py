@@ -25,7 +25,7 @@ def list_roots():
 
 @click.command()
 @click.option('-a', '--all', 'all_', is_flag=True)
-@click.argument('roots', required=False)
+@click.argument('roots', required=False, nargs=-1)
 def backup(all_: bool, roots: List[str]):
 	'''Create a new backup
 
@@ -43,7 +43,7 @@ def backup(all_: bool, roots: List[str]):
 		if all_:
 			parsed_roots = app.roots.values()
 		else:
-			if roots is None:
+			if len(roots) == 0:
 				# Print help message and abort
 				ctx = click.get_current_context()
 				click.echo(ctx.get_help())
