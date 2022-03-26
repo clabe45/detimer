@@ -22,7 +22,7 @@ class Root:
 		self.matchers = matchers
 
 	def backup(self) -> None:
-		matcher_args = [arg for matcher in self.matchers for arg in ['--exclude' if matcher.exclude else '--include', matcher.pattern]]
+		matcher_args = [arg for matcher in self.matchers for arg in ['--exclude' if matcher.exclude else '--include', f"'{matcher.pattern}'"]]
 		rdiff_backup(*matcher_args, self.source, self.destination)
 
 	@staticmethod

@@ -22,7 +22,7 @@ class TestRoot:
 		])
 		root.backup()
 
-		rdiff_backup.assert_called_once_with('--exclude', 'a', '--include', 'b', 'x/foo', 'y/foo')
+		rdiff_backup.assert_called_once_with('--exclude', "'a'", '--include', "'b'", 'x/foo', 'y/foo')
 
 	def test_parse_returns_correct_name(self):
 		raw = {
