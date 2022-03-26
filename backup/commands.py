@@ -24,12 +24,13 @@ def list_roots():
 
 
 @click.command()
-@click.argument('roots')
-def backup(roots: List[str]):
+@click.option('-a', '--all', 'all_', is_flag=True)
+@click.argument('roots', required=False)
+def backup(all_: bool, roots: List[str]):
 	'''Create a new backup
 
 	Args:
-		roots (List[str]): Root names, or '*'
+		roots (List[str]): Root names
 
 	Raises:
 		ValueError: If a root doesn't exit
@@ -39,9 +40,15 @@ def backup(roots: List[str]):
 		app = get_app()
 
 		# Get all requested roots from config
-		if roots == '*':
+		if all_:
 			parsed_roots = app.roots.values()
 		else:
+			if roots is None:
+				# Print help message and abort
+				ctx = click.get_current_context()
+				click.echo(ctx.get_help())
+				ctx.exit()
+
 			parsed_roots = []
 			for name in roots:
 				if name not in app.roots:
@@ -58,7 +65,7 @@ def backup(roots: List[str]):
 	except RDiffBackupError as e:
 		click.echo(f'rdiff-backup: {e}', err=True)
 
-	except ValueError:
+	except ValueError as e:
 		click.echo(f'backup: {e}', err=True)
 
 
