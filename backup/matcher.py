@@ -1,4 +1,5 @@
 from __future__ import annotations
+import os
 
 
 class Matcher:
@@ -7,7 +8,7 @@ class Matcher:
 		self.exclude = exclude
 
 	@staticmethod
-	def parse(line) -> Matcher:
+	def parse(line: str, source: str) -> Matcher:
 		# Each line (pattern) takes one of the following forms:
 		# + path/to/include
 		# - path/to-exclude
@@ -19,4 +20,10 @@ class Matcher:
 
 		exclude = line.startswith('-')
 		pattern = line[1:].strip()
+
+		# If it's a relative path, prepend the base source path, because
+		# rdiff-backup doesn't support relative paths
+		if not pattern.startswith(os.path.sep):
+			pattern = os.path.join(source, pattern)
+
 		return Matcher(pattern, exclude)

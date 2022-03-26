@@ -44,7 +44,7 @@ class Root:
 
 		if 'match' in yaml:
 			matchers = yaml['match'].strip().split('\n')
-			matchers = [Matcher.parse(matcher.strip()) for matcher in matchers]
+			matchers = [Matcher.parse(matcher.strip(), source=src) for matcher in matchers]
 		else:
 			matchers = None
 
