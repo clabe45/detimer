@@ -2,6 +2,7 @@ from typing import List
 import click
 
 from backup.app import get_app
+from backup.rdiff_backup import RDiffBackupError
 from backup.root import Root
 
 
@@ -34,24 +35,31 @@ def backup(roots: List[str]):
 		ValueError: If a root doesn't exit
 	'''
 
-	app = get_app()
+	try:
+		app = get_app()
 
-	# Get all requested roots from config
-	if roots == '*':
-		parsed_roots = app.roots.values()
-	else:
-		parsed_roots = []
-		for name in roots:
-			if name not in app.roots:
-				raise ValueError(f"No such root '{name}'")
+		# Get all requested roots from config
+		if roots == '*':
+			parsed_roots = app.roots.values()
+		else:
+			parsed_roots = []
+			for name in roots:
+				if name not in app.roots:
+					raise ValueError(f"No such root '{name}'")
 
-			parsed_roots.append(app.roots[name])
+				parsed_roots.append(app.roots[name])
 
-	for root in parsed_roots:
-		click.echo(f"Backing up '{root.name}'")
-		root.backup()
+		for root in parsed_roots:
+			click.echo(f"Backing up '{root.name}'")
+			root.backup()
 
-	click.echo('Done')
+		click.echo('Done')
+
+	except RDiffBackupError as e:
+		click.echo(f'rdiff-backup: {e}', err=True)
+
+	except ValueError:
+		click.echo(f'backup: {e}', err=True)
 
 
 def run_command():
