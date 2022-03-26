@@ -18,8 +18,8 @@ def root():
 @click.command(name='list')
 def list_roots():
 	app = get_app()
-	for root in app.roots:
-		click.echo(f'{root.source} -> {root.destination}')
+	for root in app.roots.values():
+		click.echo(f'{root.name}: {root.source} -> {root.destination}')
 
 
 def run_command():

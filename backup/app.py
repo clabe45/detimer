@@ -14,7 +14,9 @@ class App:
 
 	@staticmethod
 	def parse(yaml: Dict[str, any]):
-		roots = [Root.parse(root_yaml) for root_yaml in yaml['roots']]
+		roots = {
+			root.name: root for root_yaml in yaml['roots'] if (root := Root.parse(root_yaml))
+		}
 
 		return App(roots)
 
