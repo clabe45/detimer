@@ -11,4 +11,4 @@ class TestRDiffBackup:
 
 		rdiff_backup('a', 'b', 'c')
 
-		Popen.assert_called_once_with(['rdiff-backup', 'a', 'b', 'c'], stderr=subprocess.PIPE)
+		Popen.assert_called_once_with('rdiff-backup a b c', universal_newlines=True, stderr=subprocess.PIPE, shell=True, text=True)

@@ -9,7 +9,10 @@ class RDiffBackupError(Exception):
 
 
 def rdiff_backup(*args: List[str]) -> None:
-	p = subprocess.Popen(['rdiff-backup'] + list(args), stderr=subprocess.PIPE, text=True)
+	# The command has to be a string, not a list, because some arguments
+	# contains single quotes.
+	cmd = ' '.join(['rdiff-backup'] + list(args))
+	p = subprocess.Popen(cmd, universal_newlines=True, stderr=subprocess.PIPE, shell=True, text=True)
 	_, stderr = p.communicate()
 
 	if p.returncode != 0:
