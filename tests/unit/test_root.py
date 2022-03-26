@@ -5,8 +5,20 @@ from backup.root import Root
 
 
 class TestRoot:
+	def test_parse_returns_correct_name(self):
+		raw = {
+			'name': 'x',
+			'src': 'bar',
+			'dest': 'foo'
+		}
+
+		root = Root.parse(raw)
+
+		assert root.name == 'x'
+
 	def test_parse_returns_correct_source(self):
 		raw = {
+			'name': 'x',
 			'src': 'bar',
 			'dest': 'foo'
 		}
@@ -17,6 +29,7 @@ class TestRoot:
 
 	def test_parse_returns_correct_destination(self):
 		raw = {
+			'name': 'x',
 			'src': 'bar',
 			'dest': 'foo'
 		}
@@ -29,6 +42,7 @@ class TestRoot:
 		Matcher_parse = mocker.patch('backup.matcher.Matcher.parse')
 
 		raw = {
+			'name': 'x',
 			'src': 'bar',
 			'dest': 'foo',
 			'match': '''+ hello
