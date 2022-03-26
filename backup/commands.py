@@ -1,6 +1,8 @@
+from typing import List
 import click
 
-from backup.config import get_config
+from backup.app import get_app
+from backup.root import Root
 
 
 @click.group()
@@ -15,8 +17,8 @@ def root():
 
 @click.command(name='list')
 def list_roots():
-	conf = get_config()
-	for root in conf.roots:
+	app = get_app()
+	for root in app.roots:
 		click.echo(f'{root.source} -> {root.destination}')
 
 
