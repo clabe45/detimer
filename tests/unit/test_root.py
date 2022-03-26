@@ -1,9 +1,29 @@
 import pytest
 
+from backup.matcher import Matcher
 from backup.root import Root
 
 
 class TestRoot:
+	def test_backup_for_root_without_matchers_calls_rdiff_backup(self, mocker):
+		rdiff_backup = mocker.patch('backup.root.rdiff_backup')
+
+		root = Root('foo', 'x/foo', 'y/foo')
+		root.backup()
+
+		rdiff_backup.assert_called_once_with('x/foo', 'y/foo')
+
+	def test_backup_for_root_with_two_matchers_calls_rdiff_backup(self, mocker):
+		rdiff_backup = mocker.patch('backup.root.rdiff_backup')
+
+		root = Root('foo', 'x/foo', 'y/foo', [
+			Matcher('a', exclude=True),
+			Matcher('b', exclude=False)
+		])
+		root.backup()
+
+		rdiff_backup.assert_called_once_with('--exclude', 'a', '--include', 'b', 'x/foo', 'y/foo')
+
 	def test_parse_returns_correct_name(self):
 		raw = {
 			'name': 'x',

@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import Any, Dict, List
 
 from backup.matcher import Matcher
+from backup.rdiff_backup import rdiff_backup
 
 
 class Root:
@@ -19,6 +20,10 @@ class Root:
 		self.source = source
 		self.destination = destination
 		self.matchers = matchers
+
+	def backup(self) -> None:
+		matcher_args = [arg for matcher in self.matchers for arg in ['--exclude' if matcher.exclude else '--include', matcher.pattern]]
+		rdiff_backup(*matcher_args, self.source, self.destination)
 
 	@staticmethod
 	def parse(yaml: Dict[str, Any]) -> Root:

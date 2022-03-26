@@ -22,9 +22,42 @@ def list_roots():
 		click.echo(f'{root.name}: {root.source} -> {root.destination}')
 
 
+@click.command()
+@click.argument('roots')
+def backup(roots: List[str]):
+	'''Create a new backup
+
+	Args:
+		roots (List[str]): Root names, or '*'
+
+	Raises:
+		ValueError: If a root doesn't exit
+	'''
+
+	app = get_app()
+
+	# Get all requested roots from config
+	if roots == '*':
+		parsed_roots = app.roots.values()
+	else:
+		parsed_roots = []
+		for name in roots:
+			if name not in app.roots:
+				raise ValueError(f"No such root '{name}'")
+
+			parsed_roots.append(app.roots[name])
+
+	for root in parsed_roots:
+		click.echo(f"Backing up '{root.name}'")
+		root.backup()
+
+	click.echo('Done')
+
+
 def run_command():
 	cli()
 
 
 root.add_command(list_roots)
 cli.add_command(root)
+cli.add_command(backup)
