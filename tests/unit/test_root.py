@@ -1,4 +1,3 @@
-from backup.root import Root
 import pytest
 
 from backup.root import Root
