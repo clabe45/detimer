@@ -5,7 +5,7 @@ from backup.app import App
 
 class TestApp:
 	def test_parse_with_one_root_calls_root_parse(self, mocker):
-		Root_parse = mocker.patch('backup.root.Root.parse')
+		Root_parse = mocker.patch('backup.app.Root.parse')
 
 		raw_root = {
 			'name': 'x',

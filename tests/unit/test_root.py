@@ -58,7 +58,7 @@ class TestRoot:
 		assert root.destination == 'foo'
 
 	def test_parse_with_match_rules_calls_matcher_parse(self, mocker):
-		Matcher_parse = mocker.patch('backup.matcher.Matcher.parse')
+		Matcher_parse = mocker.patch('backup.root.Matcher.parse')
 
 		raw = {
 			'name': 'x',
