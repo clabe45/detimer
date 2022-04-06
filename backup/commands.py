@@ -11,18 +11,6 @@ def cli():
 	pass
 
 
-@click.group()
-def root():
-	pass
-
-
-@click.command(name='list')
-def list_roots():
-	app = get_app()
-	for root in app.roots.values():
-		click.echo(f'{root.name}: {root.source} -> {root.destination}')
-
-
 @click.command()
 @click.option('-a', '--all', 'all_', is_flag=True)
 @click.argument('roots', required=False, nargs=-1)
@@ -69,10 +57,16 @@ def backup(all_: bool, roots: List[str]):
 		click.echo(f'backup: {e}', err=True)
 
 
+@click.command(name='list')
+def list_():
+	app = get_app()
+	for root in app.roots.values():
+		click.echo(f'{root.name}: {root.source} -> {root.destination}')
+
+
 def run_command():
 	cli()
 
 
-root.add_command(list_roots)
-cli.add_command(root)
 cli.add_command(backup)
+cli.add_command(list_)
