@@ -10,6 +10,7 @@ click = "*"
 [dev-packages]
 pytest = "*"
 pytest-mock = "*"
+pyfakefs = "*"
 
 [requires]
 python_version = "3.9"
