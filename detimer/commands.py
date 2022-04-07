@@ -1,9 +1,9 @@
 from typing import List
 import click
 
-from backup.app import get_app
-from backup.rdiff_backup import RDiffBackupError
-from backup.root import Root
+from detimer.app import get_app
+from detimer.rdiff_backup import RDiffBackupError
+from detimer.root import Root
 
 
 @click.group()

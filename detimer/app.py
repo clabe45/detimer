@@ -1,8 +1,8 @@
 from __future__ import annotations
 from typing import Dict
-from backup.config import load_config
+from detimer.config import load_config
 
-from backup.root import Root
+from detimer.root import Root
 
 
 instance = None

@@ -1,12 +1,12 @@
 import pytest
 
-from backup.matcher import Matcher
-from backup.root import Root
+from detimer.matcher import Matcher
+from detimer.root import Root
 
 
 class TestRoot:
 	def test_backup_for_root_without_matchers_calls_rdiff_backup(self, mocker):
-		rdiff_backup = mocker.patch('backup.root.rdiff_backup')
+		rdiff_backup = mocker.patch('detimer.root.rdiff_backup')
 
 		root = Root('foo', 'x/foo', 'y/foo')
 		root.backup()
@@ -14,7 +14,7 @@ class TestRoot:
 		rdiff_backup.assert_called_once_with('x/foo', 'y/foo')
 
 	def test_backup_for_root_with_two_matchers_calls_rdiff_backup(self, mocker):
-		rdiff_backup = mocker.patch('backup.root.rdiff_backup')
+		rdiff_backup = mocker.patch('detimer.root.rdiff_backup')
 
 		root = Root('foo', 'x/foo', 'y/foo', [
 			Matcher('a', exclude=True),
@@ -58,7 +58,7 @@ class TestRoot:
 		assert root.destination == 'foo'
 
 	def test_parse_with_match_rules_calls_matcher_parse(self, mocker):
-		Matcher_parse = mocker.patch('backup.root.Matcher.parse')
+		Matcher_parse = mocker.patch('detimer.root.Matcher.parse')
 
 		raw = {
 			'name': 'x',

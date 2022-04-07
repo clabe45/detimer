@@ -4,7 +4,7 @@ import os
 from click import get_app_dir
 from yaml import Loader, load
 
-from backup.constants import APP_NAME
+from detimer.constants import APP_NAME
 
 
 PATH = os.path.join(get_app_dir(APP_NAME), 'config.yml')

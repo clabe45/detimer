@@ -1,8 +1,8 @@
 from __future__ import annotations
 from typing import Any, Dict, List
 
-from backup.matcher import Matcher
-from backup.rdiff_backup import rdiff_backup
+from detimer.matcher import Matcher
+from detimer.rdiff_backup import rdiff_backup
 
 
 class Root:

@@ -1,6 +1,6 @@
 import pytest
 
-from backup.matcher import Matcher
+from detimer.matcher import Matcher
 
 
 class TestMatcher:

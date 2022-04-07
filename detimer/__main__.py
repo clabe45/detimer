@@ -1,4 +1,4 @@
-from backup import main
+from detimer import main
 
 
 if __name__ == '__main__':
