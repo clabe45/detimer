@@ -3,6 +3,8 @@ import os
 
 
 class Matcher:
+	'''Inclusion/exclusion rule'''
+
 	def __init__(self, pattern: str, exclude = False) -> None:
 		self.pattern = pattern
 		self.exclude = exclude

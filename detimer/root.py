@@ -6,6 +6,8 @@ from detimer.rdiff_backup import rdiff_backup
 
 
 class Root:
+	'''Backup job'''
+
 	def __init__(
 		self,
 		name: str,

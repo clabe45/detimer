@@ -9,6 +9,8 @@ instance = None
 
 
 class App:
+	'''The config yaml parsed into something more usable'''
+
 	def __init__(self, roots: Dict[str, Root]) -> None:
 		self.roots = roots
 
