@@ -1,7 +1,8 @@
 from typing import List
 import click
 
-from detimer.app import get_app
+from detimer.app import App
+from detimer.config import load_config
 from detimer.rdiff_backup import RDiffBackupError
 from detimer.root import Root
 
@@ -11,16 +12,19 @@ CONTEXT_SETTINGS = {
 
 
 @click.group(context_settings=CONTEXT_SETTINGS)
-def cli():
+@click.pass_context
+def cli(ctx: click.Context):
 	'''Universal backup manager'''
 
-	pass
+	config = load_config()
+	ctx.obj = App.parse(config)
 
 
 @click.command()
+@click.pass_obj
 @click.option('-a', '--all', 'all_', is_flag=True)
 @click.argument('roots', required=False, nargs=-1)
-def backup(all_: bool, roots: List[str]):
+def backup(app: App, all_: bool, roots: List[str]):
 	'''
 	Backup specified roots
 
@@ -29,8 +33,6 @@ def backup(all_: bool, roots: List[str]):
 	'''
 
 	try:
-		app = get_app()
-
 		# Get all requested roots from config
 		if all_:
 			parsed_roots = app.roots.values()
@@ -62,10 +64,10 @@ def backup(all_: bool, roots: List[str]):
 
 
 @click.command(name='list')
-def list_():
+@click.pass_obj
+def list_(app: App):
 	'''List all roots'''
 
-	app = get_app()
 	for root in app.roots.values():
 		click.echo(f'{root.name}: {root.source} -> {root.destination}')
 

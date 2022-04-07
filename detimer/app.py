@@ -21,13 +21,3 @@ class App:
 		}
 
 		return App(roots)
-
-
-def get_app():
-	global instance
-
-	if instance is None:
-		yaml = load_config()
-		instance = App.parse(yaml)
-
-	return instance
