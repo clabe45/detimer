@@ -5,8 +5,12 @@ from detimer.app import get_app
 from detimer.rdiff_backup import RDiffBackupError
 from detimer.root import Root
 
+CONTEXT_SETTINGS = {
+	'help_option_names': ['-h', '--help']
+}
 
-@click.group()
+
+@click.group(context_settings=CONTEXT_SETTINGS)
 def cli():
 	'''Universal backup manager'''
 
