@@ -1,0 +1,10 @@
+roots: []
+# roots:
+#   - name: home
+#     src: /home/user
+#     dest: /backups/home
+#     match: |
+#       - Downloads
+#       - **/node_modules
+#       + exclude-dir/except-this-file
+#       - exclude-dir
