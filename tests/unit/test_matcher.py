@@ -1,0 +1,17 @@
+import pytest
+
+from backup.matcher import Matcher
+
+
+class TestMatcher:
+	def test_parse_with_include_line_returns_correct_type(self):
+		matcher = Matcher.parse('+ foo')
+		assert not matcher.exclude
+
+	def test_parse_with_exclude_line_returns_correct_type(self):
+		matcher = Matcher.parse('- foo')
+		assert matcher.exclude
+
+	def test_parse_returns_correct_pattern(self):
+		matcher = Matcher.parse('+ foo')
+		assert matcher.pattern == 'foo'
