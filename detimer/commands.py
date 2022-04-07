@@ -8,6 +8,8 @@ from detimer.root import Root
 
 @click.group()
 def cli():
+	'''Universal backup manager'''
+
 	pass
 
 
@@ -15,13 +17,11 @@ def cli():
 @click.option('-a', '--all', 'all_', is_flag=True)
 @click.argument('roots', required=False, nargs=-1)
 def backup(all_: bool, roots: List[str]):
-	'''Create a new backup
+	'''
+	Backup specified roots
 
-	Args:
-		roots (List[str]): Root names
-
-	Raises:
-		ValueError: If a root doesn't exit
+	Creates a new backup for each specified root. One or more root names can be
+	included.
 	'''
 
 	try:
@@ -59,6 +59,8 @@ def backup(all_: bool, roots: List[str]):
 
 @click.command(name='list')
 def list_():
+	'''List all roots'''
+
 	app = get_app()
 	for root in app.roots.values():
 		click.echo(f'{root.name}: {root.source} -> {root.destination}')
