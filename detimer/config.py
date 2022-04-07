@@ -8,10 +8,11 @@ from detimer.constants import APP_NAME
 
 
 _script_dir = os.path.dirname(__file__)
+_project_dir = os.path.dirname(_script_dir)
 
 CONFIG_DIR = get_app_dir(APP_NAME)
 CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.yml')
-DEFAULT_FILE = os.path.join(_script_dir, '..', 'data', 'default-config.yml')
+DEFAULT_FILE = os.path.join(_project_dir, 'data', 'default-config.yml')
 
 
 def load_config():
