@@ -16,7 +16,7 @@ CONTEXT_SETTINGS = {
 @click.group(context_settings=CONTEXT_SETTINGS)
 @click.pass_context
 @click.version_option(VERSION, '-V', '--version')
-def cli(ctx: click.Context, version: bool):
+def cli(ctx: click.Context):
 	'''Universal backup manager'''
 
 	config = load_config()
