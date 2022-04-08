@@ -69,7 +69,7 @@ def list_(app: App):
 	'''List all roots'''
 
 	for root in app.roots.values():
-		click.echo(f'{root.name}: {root.source} -> {root.destination}')
+		click.echo(f'* {root.name} ({root.source} -> {root.destination})')
 
 
 def run_command():
