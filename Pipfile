@@ -18,3 +18,4 @@ python_version = "3.9"
 [scripts]
 start = "python -m detimer"
 test = "pytest tests/"
+build = "python setup.py clean --all sdist bdist_wheel"
