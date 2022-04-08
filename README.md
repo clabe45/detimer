@@ -61,3 +61,7 @@ roots:
       + another-excluded-dir/except-this-file
       - another-excluded-dir
 ```
+
+## License
+
+Licensed under [GNU GPLv3](./LICENSE)
