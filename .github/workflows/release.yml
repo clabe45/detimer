@@ -35,3 +35,25 @@ jobs:
 
       - name: Run tests
         run: pipenv run test
+
+      - name: Build distribution
+        run: pipenv run build
+
+      - name: Get changelog notes
+        id: changelog_reader
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          version: ${{ steps.tag_name.outputs.current_version }}
+          path: ./CHANGELOG.md
+
+      - name: Publish release to PyPi
+        run: pipenv run publish -u __token__ -p ${{ secrets.PYPI_TOKEN }}
+
+      - name: Publish release to GitHub
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: ${{ steps.changelog_reader.outputs.changes }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
