@@ -1,8 +1,10 @@
 from typing import List
+
 import click
 
 from detimer.app import App
 from detimer.config import load_config
+from detimer.constants import VERSION
 from detimer.rdiff_backup import RDiffBackupError
 from detimer.root import Root
 
@@ -13,7 +15,8 @@ CONTEXT_SETTINGS = {
 
 @click.group(context_settings=CONTEXT_SETTINGS)
 @click.pass_context
-def cli(ctx: click.Context):
+@click.version_option(VERSION, '-V', '--version')
+def cli(ctx: click.Context, version: bool):
 	'''Universal backup manager'''
 
 	config = load_config()
