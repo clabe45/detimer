@@ -70,6 +70,12 @@ roots:
       - another-excluded-dir
 ```
 
+## Contributing
+
+Pull Requests are welcome! Please open an issue before making major changes.
+Additionally, we use
+[conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
+
 ## License
 
 Licensed under [GNU GPLv3](./LICENSE)
