@@ -1,4 +1,5 @@
 from __future__ import annotations
+import importlib.resources
 import os
 
 from click import get_app_dir
@@ -7,12 +8,8 @@ from yaml import Loader, load
 from detimer.constants import APP_NAME
 
 
-_script_dir = os.path.dirname(__file__)
-_project_dir = os.path.dirname(_script_dir)
-
 CONFIG_DIR = get_app_dir(APP_NAME)
 CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.yml')
-DEFAULT_FILE = os.path.join(_project_dir, 'data', 'default-config.yml')
 
 
 def load_config():
@@ -22,7 +19,10 @@ def load_config():
 		raise Exception(f'{CONFIG_DIR} is not a directory')
 
 	if not os.path.exists(CONFIG_FILE):
-		with open(CONFIG_FILE, 'w+') as real, open(DEFAULT_FILE, 'r') as default:
+		with (
+			open(CONFIG_FILE, 'w+') as real,
+			importlib.resources.open_text('detimer.data', 'default-config.yml') as default
+		):
 			default_config = default.read()
 			real.write(default_config)
 

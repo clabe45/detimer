@@ -4,7 +4,7 @@ from click.testing import CliRunner
 import pytest
 
 from detimer.commands import cli
-from detimer.config import CONFIG_DIR, DEFAULT_FILE
+from detimer.config import CONFIG_DIR
 
 
 @pytest.fixture()
@@ -25,4 +25,4 @@ def no_config(fs):
 	fs.create_dir(parent_dir)
 
 	# Copy default config file to fake file system
-	fs.add_real_file(DEFAULT_FILE)
+	fs.add_real_file('detimer/data/default-config.yml')
