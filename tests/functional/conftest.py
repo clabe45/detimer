@@ -12,7 +12,7 @@ def run():
 	runner = CliRunner()
 
 	def invoke(*args):
-		return runner.invoke(cli, args)
+		return runner.invoke(cli, args, catch_exceptions=False)
 
 	return invoke
 
