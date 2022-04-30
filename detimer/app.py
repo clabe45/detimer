@@ -1,7 +1,9 @@
 from __future__ import annotations
 from typing import Dict
-from detimer.config import load_config
 
+import click
+
+from detimer.config import load_config
 from detimer.root import Root
 
 
@@ -16,8 +18,15 @@ class App:
 
 	@staticmethod
 	def parse(yaml: Dict[str, any]):
-		roots = {
-			root.name: root for root_yaml in yaml['roots'] if (root := Root.parse(root_yaml))
-		}
+		if yaml is None:
+			raise click.UsageError('Empty config file')
+
+		try:
+			roots = {
+				root.name: root for root_yaml in yaml['roots'] if (root := Root.parse(root_yaml))
+			}
+
+		except KeyError as e:
+			raise click.UsageError(f"Invalid config file (missing property {e})")
 
 		return App(roots)

@@ -49,7 +49,9 @@ def backup(app: App, all_: bool, roots: List[str]):
 			parsed_roots = []
 			for name in roots:
 				if name not in app.roots:
-					raise ValueError(f"No such root '{name}'")
+					# click.BadParameter adds too many words to the error
+					# message, so I'm using click.UsageError
+					raise click.UsageError(f"No such root '{name}'")
 
 				parsed_roots.append(app.roots[name])
 
@@ -60,10 +62,7 @@ def backup(app: App, all_: bool, roots: List[str]):
 		click.echo('Done')
 
 	except RDiffBackupError as e:
-		click.echo(f'rdiff-backup: {e}', err=True)
-
-	except ValueError as e:
-		click.echo(f'backup: {e}', err=True)
+		click.echo(f'rdiff-backup error: {e}', err=True)
 
 
 @click.command(name='list')
