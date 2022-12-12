@@ -19,16 +19,23 @@ class Root:
         self.destination = destination
         self.matchers = matchers
 
-    def backup(self) -> None:
-        matcher_args = [
-            arg
-            for matcher in self.matchers
-            for arg in [
-                "--exclude" if matcher.exclude else "--include",
-                f"'{matcher.pattern}'",
+    def backup(self, force=False) -> None:
+        options = []
+        if force:
+            options.append("--force")
+
+        options.extend(
+            [
+                arg
+                for matcher in self.matchers
+                for arg in [
+                    "--exclude" if matcher.exclude else "--include",
+                    f"'{matcher.pattern}'",
+                ]
             ]
-        ]
-        rdiff_backup(*matcher_args, self.source, self.destination)
+        )
+
+        rdiff_backup(*options, self.source, self.destination)
 
     @staticmethod
     def parse(yaml: Dict[str, Any]) -> Root:

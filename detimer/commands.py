@@ -24,14 +24,20 @@ def cli(ctx: click.Context):
 @click.command()
 @click.pass_obj
 @click.option("-a", "--all", "all_", is_flag=True)
+@click.option("-f", "--force", is_flag=True)
 @click.argument("roots", required=False, nargs=-1)
-def backup(app: App, all_: bool, roots: List[str]):
+def backup(app: App, all_: bool, force: bool, roots: List[str]):
     """
     Backup specified roots
 
     Creates a new backup for each specified root. One or more root names can be
     included.
     """
+
+    if force and all_:
+        if not click.confirm("Are you sure you want to force all backups?"):
+            click.echo("Aborting")
+            return
 
     try:
         # Get all requested roots from config

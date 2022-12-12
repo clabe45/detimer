@@ -28,6 +28,14 @@ class TestRoot:
             "--exclude", "'a'", "--include", "'b'", "x/foo", "y/foo"
         )
 
+    def test_backup_forcefully_calls_rdiff_backup(self, mocker):
+        rdiff_backup = mocker.patch("detimer.root.rdiff_backup")
+
+        root = Root("foo", "x/foo", "y/foo")
+        root.backup(force=True)
+
+        rdiff_backup.assert_called_once_with("--force", "x/foo", "y/foo")
+
     def test_parse_returns_correct_name(self):
         raw = {"name": "x", "src": "bar", "dest": "foo"}
 
