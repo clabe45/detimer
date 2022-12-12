@@ -13,6 +13,7 @@ pytest-mock = "*"
 pyfakefs = "*"
 twine = "*"
 wheel = "*"
+black = "*"
 
 [requires]
 python_version = "3.9"
@@ -20,5 +21,6 @@ python_version = "3.9"
 [scripts]
 start = "python -m detimer"
 test = "pytest tests/"
+lint = "black detimer tests setup.py"
 build = "python setup.py clean --all sdist bdist_wheel"
 publish = "python -m twine upload dist/*"
