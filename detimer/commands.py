@@ -61,7 +61,7 @@ def backup(app: App, all_: bool, force: bool, roots: List[str]):
 
         for root in parsed_roots:
             click.echo(f"Backing up '{root.name}'")
-            root.backup()
+            root.backup(force=force)
 
         click.echo("Done")
 
