@@ -1,4 +1,4 @@
-from detimer.commands import run_command
+from detimer.cli import run_command
 
 
 def main():

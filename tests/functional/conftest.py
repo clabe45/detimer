@@ -3,7 +3,7 @@ import os
 from click.testing import CliRunner
 import pytest
 
-from detimer.commands import cli
+from detimer.cli import cli
 from detimer.config import CONFIG_DIR
 
 
