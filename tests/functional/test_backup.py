@@ -8,3 +8,9 @@ def test_backup_with_default_config_file_outputs_done(run, no_config):
     result = run("backup", "-a")
 
     assert result.output == "Done\n"
+
+
+def test_backup_with_force_and_all_confirms(run, no_config):
+    result = run("backup", "-a", "-f")
+
+    assert "Are you sure you want to force all backups?" in result.output

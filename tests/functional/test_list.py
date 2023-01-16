@@ -16,9 +16,3 @@ def test_list_with_no_config_file_outputs_nothing(run, no_config):
     result = run("list")
 
     assert len(result.output) == 0
-
-
-def test_backup_with_force_and_all_confirms(run, no_config):
-    result = run("backup", "-a", "-f")
-
-    assert "Are you sure you want to force all backups?" in result.output
