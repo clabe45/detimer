@@ -19,10 +19,12 @@ class Root:
         self.destination = destination
         self.matchers = matchers
 
-    def backup(self, force=False) -> None:
+    def backup(self, force=False, verbosity=3) -> None:
         options = []
         if force:
             options.append("--force")
+
+        options.extend(["--verbosity", str(verbosity)])
 
         options.extend(
             [

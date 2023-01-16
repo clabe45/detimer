@@ -11,7 +11,7 @@ class TestRoot:
         root = Root("foo", "x/foo", "y/foo")
         root.backup()
 
-        rdiff_backup.assert_called_once_with("x/foo", "y/foo")
+        rdiff_backup.assert_called_once_with("--verbosity", "3", "x/foo", "y/foo")
 
     def test_backup_for_root_with_two_matchers_calls_rdiff_backup(self, mocker):
         rdiff_backup = mocker.patch("detimer.root.rdiff_backup")
@@ -25,7 +25,7 @@ class TestRoot:
         root.backup()
 
         rdiff_backup.assert_called_once_with(
-            "--exclude", "'a'", "--include", "'b'", "x/foo", "y/foo"
+            "--verbosity", "3", "--exclude", "'a'", "--include", "'b'", "x/foo", "y/foo"
         )
 
     def test_backup_forcefully_calls_rdiff_backup(self, mocker):
@@ -34,7 +34,17 @@ class TestRoot:
         root = Root("foo", "x/foo", "y/foo")
         root.backup(force=True)
 
-        rdiff_backup.assert_called_once_with("--force", "x/foo", "y/foo")
+        rdiff_backup.assert_called_once_with(
+            "--force", "--verbosity", "3", "x/foo", "y/foo"
+        )
+
+    def test_backup_with_verbosity_calls_rdiff_backup(self, mocker):
+        rdiff_backup = mocker.patch("detimer.root.rdiff_backup")
+
+        root = Root("foo", "x/foo", "y/foo")
+        root.backup(verbosity=0)
+
+        rdiff_backup.assert_called_once_with("--verbosity", "0", "x/foo", "y/foo")
 
     def test_parse_returns_correct_name(self):
         raw = {"name": "x", "src": "bar", "dest": "foo"}

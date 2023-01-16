@@ -1,20 +1,8 @@
 import os
 
-from click.testing import CliRunner
 import pytest
 
-from detimer.cli import cli
 from detimer.config import CONFIG_DIR
-
-
-@pytest.fixture()
-def run():
-    runner = CliRunner()
-
-    def invoke(*args):
-        return runner.invoke(cli, args, catch_exceptions=False)
-
-    return invoke
 
 
 @pytest.fixture()

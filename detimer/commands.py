@@ -6,7 +6,7 @@ from detimer.app import App
 from detimer.rdiff_backup import RDiffBackupError
 
 
-def backup(app: App, all_: bool, force: bool, roots: List[str]):
+def backup(app: App, all_: bool, force: bool, verbosity: int, roots: List[str]):
     """
     Backup specified roots
 
@@ -16,7 +16,9 @@ def backup(app: App, all_: bool, force: bool, roots: List[str]):
 
     if force and all_:
         if not click.confirm("Are you sure you want to force all backups?"):
-            click.echo("Aborting")
+            if verbosity > 0:
+                click.echo("Aborting")
+
             return
 
     try:
@@ -40,10 +42,13 @@ def backup(app: App, all_: bool, force: bool, roots: List[str]):
                 parsed_roots.append(app.roots[name])
 
         for root in parsed_roots:
-            click.echo(f"Backing up '{root.name}'")
-            root.backup(force=force)
+            if verbosity > 0:
+                click.echo(f"Backing up '{root.name}'")
 
-        click.echo("Done")
+            root.backup(force=force, verbosity=verbosity)
+
+        if verbosity > 0:
+            click.echo("Done")
 
     except RDiffBackupError as e:
         click.echo(f"rdiff-backup error: {e}", err=True)

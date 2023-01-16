@@ -20,3 +20,9 @@ def test_backup_with_force_and_all_confirms(run, no_config):
     result = run("backup", "-a", "-f")
 
     assert "Are you sure you want to force all backups?" in result.output
+
+
+def test_backup_with_verbosity_of_0_has_no_output(run, no_config):
+    result = run("backup", "-a", "-v0")
+
+    assert result.output == ""
