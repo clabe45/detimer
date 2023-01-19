@@ -26,7 +26,9 @@ def cli(ctx: click.Context):
 @click.pass_obj
 @click.option("-a", "--all", "all_", is_flag=True)
 @click.option("-f", "--force", is_flag=True)
-@click.option("-v", "--verbosity", type=click.IntRange(0, 9), default=3, show_default=True)
+@click.option(
+    "-v", "--verbosity", type=click.IntRange(0, 9), default=3, show_default=True
+)
 @click.argument("roots", required=False, nargs=-1)
 def backup(app: App, all_: bool, force: bool, verbosity: int, roots: List[str]):
     """
