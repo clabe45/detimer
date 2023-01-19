@@ -1,7 +1,7 @@
 import pytest
 
 from detimer.app import App
-from detimer.root import Root
+from detimer.root import Root, SpecialFileMode
 
 
 @pytest.fixture
@@ -20,11 +20,13 @@ def app(mocker) -> App:
     root1 = mocker.Mock(spec=Root)
     root1.name = "root1"
     root1.source = "source1"
+    root1.special_files = SpecialFileMode.DETECT
     root1.destination = "destination1"
 
     root2 = mocker.Mock(spec=Root)
     root2.name = "root2"
     root2.source = "source2"
+    root1.special_files = SpecialFileMode.DETECT
     root2.destination = "destination2"
 
     app.roots = {

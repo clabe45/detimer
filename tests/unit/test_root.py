@@ -1,7 +1,7 @@
 import pytest
 
 from detimer.matcher import Matcher
-from detimer.root import Root
+from detimer.root import Root, SpecialFileMode
 
 
 class TestRoot:
@@ -20,12 +20,31 @@ class TestRoot:
             "foo",
             "x/foo",
             "y/foo",
-            [Matcher("a", exclude=True), Matcher("b", exclude=False)],
+            matchers=[Matcher("a", exclude=True), Matcher("b", exclude=False)],
         )
         root.backup()
 
         rdiff_backup.assert_called_once_with(
-            "--verbosity", "3", "--exclude", "'a'", "--include", "'b'", "x/foo", "y/foo"
+            "--verbosity",
+            "3",
+            "--exclude",
+            "'a'",
+            "--include",
+            "'b'",
+            "x/foo",
+            "y/foo",
+        )
+
+    def test_backup_for_root_with_special_files_disabled_calls_rdiff_backup(
+        self, mocker
+    ):
+        rdiff_backup = mocker.patch("detimer.root.rdiff_backup")
+
+        root = Root("foo", "x/foo", "y/foo", special_files=SpecialFileMode.EXCLUDE)
+        root.backup()
+
+        rdiff_backup.assert_called_once_with(
+            "--verbosity", "3", "--exclude-special-files", "x/foo", "y/foo"
         )
 
     def test_backup_forcefully_calls_rdiff_backup(self, mocker):

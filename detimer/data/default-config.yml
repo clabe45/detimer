@@ -3,6 +3,7 @@ roots: []
 #   - name: home
 #     src: /home/user
 #     dest: /backups/home
+#     special_files: detect
 #     match: |
 #       - Downloads
 #       - **/node_modules

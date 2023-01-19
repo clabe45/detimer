@@ -11,6 +11,7 @@ class TestApp:
             "name": "x",
             "src": "bar",
             "dest": "foo",
+            "special_files": "include",
             "match": """+ hello
 			- world
 			""",

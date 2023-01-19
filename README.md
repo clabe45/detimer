@@ -62,6 +62,7 @@ roots:
   - name: mega
     src: /home/USER
     dest: /mega/backups
+    special_files: exclude  # detect|include|exclude
     match: |
       - Downloads
       - **/node_modules

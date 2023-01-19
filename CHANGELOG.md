@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- `--verbosity` option
+- `--verbosity` CLI option
+- `special_files` option to `config.yml`
 
 ## [0.2.1] - 2022-12-12
 ### Fixed
