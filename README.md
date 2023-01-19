@@ -1,18 +1,13 @@
 # Detimer
 
-Detimer provides a high-level interface for making backups. Say goodbye to messy
-backup scripts. With this tool you can configure all your backup targets in a
-single yaml file.
-
-**Currently supported backup tools:**
-- [rdiff-backup](https://rdiff-backup.net)
-- *more coming soon*
+Detimer is a backup manager that allows you to easily configure backups in a
+yaml file and run them. It uses [rdiff-backup](https://rdiff-backup.net) to
+perform the backups.
 
 ## Overview
 
-A **root** is a backup job, including information such as the directory to back
-up, where to store it and exclusion rules. Eventually, you will also be able to
-specify a backup tool (for now rdiff-backup is assumed).
+A **root** is a backup task, including information such as the directory to back
+up, where to store it and exclusion rules.
 
 ## Installation
 
@@ -30,7 +25,7 @@ pip install detimer
 $ detimer -h
 Usage: detimer [OPTIONS] COMMAND [ARGS]...
 
-  Universal backup manager
+  Simple backup manager
 
 Options:
   -V, --version  Show the version and exit.
