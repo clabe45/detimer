@@ -16,7 +16,7 @@ CONTEXT_SETTINGS = {"help_option_names": ["-h", "--help"]}
 @click.pass_context
 @click.version_option(VERSION, "-V", "--version")
 def cli(ctx: click.Context):
-    """Supercharged rdiff-backup wrapper"""
+    """Universal backup manager"""
 
     config = load_config()
     ctx.obj = App.parse(config)
