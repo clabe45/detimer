@@ -43,10 +43,14 @@ To add a root, edit `config.yml` in:
 - Unix: **~/.config/detimer**
 - Windows: **%USERPROFILE%\AppData\Roaming\Detimer**
 
-Each root should have the following properties:
-- `name`
-- `src` - Absolute path of the source directory
-- `dest` - Absolute path of the destination directory
+Each root can have the following properties:
+- `name` (required) - Name of the root
+- `src` (required) - Absolute path of the source directory
+- `dest` (required) - Absolute path of the destination directory
+- `special_files` - How to handle special files (e.g. symlinks, devices, etc.)
+  - `detect` - Let rdiff-backup decide based on the OS (default)
+  - `include` - Include special files in the backup
+  - `exclude` - Exclude special files from the backup
 - `match` - Inclusion/exclusion rules. Patterns starting with `-` are excluded,
   and patterns starting with `+` are force-included. Any inclusion lines must
   precede their corresponding exclusion lines (see the example below).
