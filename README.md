@@ -2,7 +2,21 @@
 
 Detimer is a backup manager that allows you to easily configure backups in a
 yaml file and run them. It uses [rdiff-backup](https://rdiff-backup.net) to
-perform the backups.
+perform reverse differential backups.
+
+:warning: **This project is still in early development and is not ready for
+production use.**
+
+## Features
+
+- [x] Configure backup tasks in a yaml file
+- [x] Create backups
+- [x] Compression of backup files and transfer over SSH (provided by
+      rdiff-backup)
+- [ ] Restore backups
+- [ ] List backups
+- [ ] Delete backups
+- [ ] Schedule backups
 
 ## Overview
 
